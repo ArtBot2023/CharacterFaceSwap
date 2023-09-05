@@ -31,7 +31,7 @@ class GenerationParameterInput:
     RETURN_NAMES = ("parameters", )
     FUNCTION = "mux"
 
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
 
     def mux(self, seed, image_width, image_height, steps, cfg, sampler_name, scheduler, denoise, parameters={}):
         parameters["seed"] = seed
@@ -56,7 +56,7 @@ class GenertaionParameterOutput:
     RETURN_NAMES = ("parameters", "seed", "image_width", "image_height", "steps", "cfg", "sampler_name", "scheduler", "denoise", )
     FUNCTION = "demux"
 
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
 
     def demux(self, parameters):
         seed = parameters["seed"]
@@ -79,7 +79,7 @@ class LoadRetinaFace:
     RETURN_TYPES = ("RETINAFACE", )
     RETURN_NAMES = ("MODEL", )
     FUNCTION = "load"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
     def load(self):
         from facexlib.detection import init_detection_model
         return (init_detection_model("retinaface_resnet50", model_rootpath=self.models_dir), )
@@ -102,7 +102,7 @@ class CropFace:
     )
     RETURN_NAMES = ("face_image", "preview", "bbox")
     FUNCTION = "crop"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
 
     def crop(self, model: RetinaFace, image: torch.Tensor, confidence: float, margin: int):        
         with torch.no_grad():
@@ -214,7 +214,7 @@ class UncropFace:
         }
     RETURN_TYPES = ("IMAGE", )
     
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
     FUNCTION = "uncrop"
     def uncrop(self, image: torch.Tensor, bbox: BBox, face: torch.Tensor, mask: torch.Tensor):
         bbox_face, bbox_mask = self.scale_face(face.squeeze(), mask, bbox[2])
@@ -265,7 +265,7 @@ class LoadBisenet:
     
     RETURN_TYPES = ("BISENET", )
     FUNCTION = "load"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
     def load(self):
         from facexlib.parsing import init_parsing_model
         return (init_parsing_model("bisenet", model_rootpath=self.models_dir), )
@@ -288,7 +288,7 @@ class SegFace:
     )
     RETURN_NAMES = ("image", "mask")
     FUNCTION = "segment"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
 
     # labels: 0 'background'
     # 1 'skin', 2 'l_brow', 3 'r_brow', 4 'l_eye', 5 'r_eye',
@@ -340,7 +340,7 @@ class ImageFullBBox:
     
     RETURN_TYPES = ("BBOX", )
     FUNCTION = "bbox"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
     def bbox(self, image: torch.Tensor):
         image = image.squeeze()
         return ((0,0,image.shape[1],image.shape[0]), )
@@ -358,7 +358,7 @@ class ColorBlend:
     
     RETURN_TYPES = ("IMAGE", )
     FUNCTION = "blend"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
     def blend(self, blend_image: torch.Tensor, base_image: torch.Tensor, mode: Literal["Hue", "Saturation", "Color", "Luminosity"]):
         from .blend import color_blend
         return (cv2tensor(color_blend(base_image=tensor2cv(base_image), blend_image=tensor2cv(blend_image), mode=mode)), )
@@ -377,7 +377,7 @@ class ExcludeFacialFeature:
     
     RETURN_TYPES = ("IMAGE", )
     FUNCTION = "exclude"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
     annotation_name = ['background', 
         'skin', 'l_brow', 'r_brow', 'l_eye', 'r_eye',
         'eye_g', 'l_ear', 'r_ear', 'ear_r', 'nose',
@@ -422,7 +422,7 @@ class MaskContour:
     
     RETURN_TYPES = ("MASK", )
     FUNCTION = "find_contour"
-    CATEGORY = "ArtBot2023"
+    CATEGORY = "CFaceSwap"
     
     def find_contour(self, mask: torch.Tensor):
         mask_np: np.ndarray = mask.squeeze().cpu().numpy().astype('uint8')
