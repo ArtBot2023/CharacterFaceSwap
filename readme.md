@@ -15,8 +15,10 @@ ControlNet ip2p model is used for visual conditioning, download [ip2p](https://h
 ### Character Face Swap
 
 Recommend using [ComfyUI Manager](https://github.com/ltdrdata/ComfyUI-Manager).
+Search Character Face Swap in manager and install. 
+In your ComfyUI, load workflows in `custom_nodes/CharacterFaceSwap/workflows`.
 
-Install then load workflow
+![Alt text](images/ComfyManager.png)
 
 For manual installation,
 
@@ -35,30 +37,43 @@ In your ComfyUI, load workflows in `custom_nodes/CharacterFaceSwap/workflows`.
 
 ## How It Works
 
-Choose Your Model: Choose Checkpoint and LoRA trained for your character.
+<details>
+  <summary>Choose Checkpoint and LoRA trained for your character.</summary>
+  <img src="images/choose_model.png" width="300">
+</details>
 
-<img alt="123" src="images/choose_model.png" width="300"/>
+<details>
+  <summary>Upload Base Image and Character Face</summary>
+  <img alt="123" src="images/upload_face.png" width="300"/>
+</details>
 
-Upload Base Image and Character Face
 
-<img alt="123" src="images/upload_face.png" width="300"/>
+<details>
+  <summary>Write prompts to describe target face, use LoRA keywords and embeddings.</summary>
+  <img alt="123" src="images/prompt.png" width="300"/>
+</details>
 
-Text Prompt: write prompts to describe target face, use LoRA keywords and embeddings.
+<details>
+  <summary>
+  Generate character face, you can check character face generation in Preview. Download Face with Seam, and Seam Mask.
+  </summary>
+  
+  ![Alt text](images/preview_face.png)
+</details>
 
-<img alt="123" src="images/prompt.png" width="300"/>
+<details>
+  <summary>
+  Seam Fix Inpainting: Use webui inpainting to fix seam. Check [FAQ](#faq)
+  </summary>
+  <img src="images/fix_seam.png" width="300">
+</details>
 
-Generate Character Face: You can check character face generation in Preview. Download Face with Seam, and Seam Mask.
-
-![Alt text](images/preview_face.png)
-
-Seam Fix Inpainting: Use webui inpainting to fix seam. Check [FAQ](#faq)
-
-<img src="images/fix_seam.png" width="300">
-
-Upload Seamless Face: Upload inpainting result to Seamless Face, and Queue Prompt again. Done!
-
-![Alt text](images/seamless_face.png)
-
+<details>
+  <summary>
+  Upload Seamless Face: Upload inpainting result to Seamless Face, and Queue Prompt again. Done!
+  </summary>
+  <img src="images/seamless_face.png" width="300"/>  
+</details>
 
 ## FAQ
 
