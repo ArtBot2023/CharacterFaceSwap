@@ -27,9 +27,9 @@ cd ComfyUI/custom_nodes/
 git clone https://github.com/ArtBot2023/CharacterFaceSwap.git
 cd CharacterFaceSwap
 # if you use ported ComfyUI
-../../../python_embeded/python -m pip install -r requirements
+../../../python_embeded/python install.py
 # otherwise
-pip install -r requirements
+python install.py
 ```
 
 In your ComfyUI, load workflows in `custom_nodes/CharacterFaceSwap/workflows`.
