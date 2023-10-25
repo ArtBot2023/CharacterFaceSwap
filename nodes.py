@@ -218,8 +218,6 @@ class UncropFace:
     FUNCTION = "uncrop"
     def uncrop(self, image: torch.Tensor, bbox: BBox, face: torch.Tensor, mask: torch.Tensor):
         bbox_face, bbox_mask = self.scale_face(face.squeeze(), mask, bbox[2])
-        cv2.imwrite("bbox_face.png", tensor2cv(bbox_face))
-        cv2.imwrite("bbox_mask.png", tensor2cv(bbox_mask))
         image_apply_face = self.weighted_sum(image.squeeze(), bbox, bbox_face, bbox_mask)
         return (image_apply_face.unsqueeze(0), )
 
@@ -231,6 +229,7 @@ class UncropFace:
         """
         scaled_faces: List[torch.Tensor] = []
         for face in [face, mask.unsqueeze(-1)]:
+            print(f"face dims {face.shape}")
             # Change the layout to [batch, channel, height, width]
             face = face.permute(2, 0, 1).unsqueeze(0)            
             scaled_face = torch.nn.functional.interpolate(face, size=(size, size), mode="bilinear", align_corners=True)
